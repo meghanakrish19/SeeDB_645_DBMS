@@ -190,17 +190,6 @@ class SeeDB(object):
 
         return suggested_views
 
-    def query_for_visual(self, selection_fields, data_table, filter_condition, attribute, start_id, end_id):
-        return ' '.join(['WITH attrs AS (SELECT DISTINCT(' + attribute + ') AS __atr__',
-                         'FROM', data_table, ')',
-                         'SELECT', selection_fields,
-                         'FROM', 'attrs LEFT JOIN', data_table,
-                         'ON', '__atr__ =', attribute,
-                         'AND', filter_condition,
-                         'AND id >= ' + str(start_id), 'AND', 'id < ' + str(end_id),
-                         'GROUP BY __atr__',
-                         'ORDER BY __atr__'])
-
     
 
     def construct_view_query( self , selections_query , table , condition , dimension_attribute , start , end ):
